@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chancel— Hôtel de Charme & Restaurant Gastronomique</title>
+<meta name="description" content="chancel — Hôtel boutique de charme, restaurant gastronomique et espace bien-être au cœur de la Méditerranée. Réservez votre séjour d'exception.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --beige: #f5efe6;
+    --sand: #e8dcc8;
+    --cream: #faf7f2;
+    --olive: #6b7c5c;
+    --olive-dark: #4a5940;
+    --olive-light: #8fa07a;
+    --wood: #9c7a52;
+    --wood-light: #c4a882;
+    --dark: #2a2520;
+    --text: #3d3530;
+    --text-light: #7a6e65;
+    --white: #ffffff;
+    --gold: #b8965a;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--beige); }
+  ::-webkit-scrollbar-thumb { background: var(--olive); border-radius: 3px; }
+
+  /* ── TYPOGRAPHY ── */
+  h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 400; line-height: 1.15; }
+  h1 { font-size: clamp(2.8rem, 6vw, 5rem); }
+  h2 { font-size: clamp(2rem, 4vw, 3.2rem); }
+  h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+  p { line-height: 1.85; font-weight: 300; }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 0 3rem;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
+  }
+  nav.scrolled {
+    background: rgba(250, 247, 242, 0.97);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--white);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav.scrolled .nav-logo { color: var(--dark); }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.9);
+    transition: color 0.3s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  .nav-links a:hover::after { transform: scaleX(1); }
+  nav.scrolled .nav-links a { color: var(--text); }
+  nav.scrolled .nav-links a:hover { color: var(--olive); }
+
+  .nav-cta {
+    background: var(--olive);
+    color: var(--white) !important;
+    padding: 0.55rem 1.4rem;
+    border-radius: 2px;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--olive-dark) !important; }
+  .nav-cta::after { display: none !important; }
+
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1100;
+    padding: 5px;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2px;
+    background: var(--white);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+  nav.scrolled .hamburger span { background: var(--dark); }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--cream);
+    z-index: 1050;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    color: var(--dark);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: var(--olive); }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh;
+    min-height: 700px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(30,25,20,0.55) 0%, rgba(20,18,14,0.35) 60%, rgba(10,8,5,0.7) 100%),
+      url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=1800&q=85') center/cover no-repeat;
+    transform: scale(1.04);
+    transition: transform 8s ease;
+  }
+  .hero-bg.loaded { transform: scale(1); }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--white);
+    padding: 2rem;
+    animation: fadeUp 1.2s ease both;
+    animation-delay: 0.3s;
+  }
+  .hero-eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--wood-light);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.6s both;
+  }
+  .hero h1 {
+    color: var(--white);
+    margin-bottom: 0.6rem;
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.8s both;
+  }
+  .hero-tagline {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1s both;
+  }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: rgba(255,255,255,0.85);
+    max-width: 520px;
+    margin: 0 auto 2.8rem;
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.1s both;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.3s both;
+  }
+  .btn-primary {
+    background: var(--olive);
+    color: var(--white);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid var(--olive);
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--olive-dark); border-color: var(--olive-dark); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.6);
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: var(--white); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.6);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fadeIn 1s ease 2s both;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.5));
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  /* ── SECTION BASE ── */
+  section { padding: 7rem 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+  .section-label {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--olive);
+    margin-bottom: 0.8rem;
+    display: block;
+  }
+  .section-divider {
+    width: 50px;
+    height: 1px;
+    background: var(--wood-light);
+    margin: 1.5rem 0 2rem;
+  }
+  .section-divider.centered { margin: 1.5rem auto 2rem; }
+
+  /* ── REVEAL ANIMATION ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
+
+  /* ── STRIP BANNER ── */
+  .strip-banner {
+    background: var(--olive);
+    color: var(--white);
+    padding: 1.5rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .strip-item svg { width: 18px; height: 18px; opacity: 0.85; }
+
+  /* ── RESTAURANT SECTION ── */
+  .restaurant-section { background: var(--white); }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .two-col.reverse { direction: rtl; }
+  .two-col.reverse > * { direction: ltr; }
+
+  .restaurant-text h2 { color: var(--dark); margin-bottom: 0.5rem; }
+  .restaurant-text p { color: var(--text-light); margin-bottom: 1.3rem; font-size: 0.97rem; }
+  .chef-signature {
+    display: flex;
+    gap: 1.5rem;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: var(--beige);
+    border-left: 3px solid var(--olive);
+  }
+  .chef-sig-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.2rem;
+  }
+  .chef-sig-role {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--olive);
+  }
+  .chef-sig-desc { font-size: 0.88rem; color: var(--text-light); margin-top: 0.4rem; }
+
+  .img-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+  }
+  .img-wrapper img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.7s ease;
+  }
+  .img-wrapper:hover img { transform: scale(1.04); }
+  .img-badge {
+    position: absolute;
+    bottom: -1px; right: -1px;
+    background: var(--olive);
+    color: var(--white);
+    padding: 1.2rem 1.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.4;
+    max-width: 180px;
+    text-align: center;
+  }
+
+  /* ── EXPERIENCE SECTION ── */
+  .experience-section { background: var(--beige); }
+  .experience-section h2 { text-align: center; margin-bottom: 0.5rem; }
+  .exp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.8rem;
+    margin-top: 3.5rem;
+  }
+  .exp-card {
+    background: var(--white);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--olive);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  .exp-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+  .exp-card:hover::before { transform: scaleX(1); }
+  .exp-icon {
+    width: 58px; height: 58px;
+    background: var(--beige);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+  }
+  .exp-icon svg { width: 26px; height: 26px; color: var(--olive); }
+  .exp-card h3 {
+    font-size: 1.2rem;
+    color: var(--dark);
+    margin-bottom: 0.8rem;
+  }
+  .exp-card p { font-size: 0.88rem; color: var(--text-light); }
+
+  
+  .hotel-section { background: var(--dark); color: var(--white); }
+  .hotel-section .section-label { color: var(--wood-light); }
+  .hotel-section h2 { color: var(--white); margin-bottom: 1rem; }
+  .hotel-section p { color: rgba(255,255,255,0.7); }
+  .rooms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .room-card { position: relative; overflow: hidden; cursor: pointer; }
+  .room-card img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .room-card:hover img { transform: scale(1.06); }
+  .room-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(20,16,12,0.85) 0%, transparent 55%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+    transition: background 0.3s ease;
+  }
+  .room-card:hover .room-overlay {
+    background: linear-gradient(to top, rgba(20,16,12,0.92) 0%, rgba(20,16,12,0.2) 55%);
+  }
+  .room-type {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--wood-light);
+    margin-bottom: 0.4rem;
+  }
+  .room-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--white);
+    font-weight: 400;
+  }
+  .room-price {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    margin-top: 0.3rem;
+  }
+  .room-cta {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--wood-light);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    border-bottom: 1px solid var(--wood-light);
+    padding-bottom: 2px;
+  }
+  .room-card:hover .room-cta { opacity: 1; transform: translateY(0); }
+
+  /* ── BIEN-ÊTRE SECTION ── */
+  .wellness-section {
+    background:
+      linear-gradient(rgba(40,35,28,0.7), rgba(40,35,28,0.7)),
+      url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1600&q=80') center/cover fixed;
+    color: var(--white);
+    text-align: center;
+    padding: 10rem 0;
+  }
+  .wellness-section .section-label { color: var(--wood-light); justify-content: center; display: block; }
+  .wellness-section h2 { color: var(--white); margin-bottom: 1rem; }
+  .wellness-section p { color: rgba(255,255,255,0.75); max-width: 550px; margin: 0 auto 2.5rem; }
+  .wellness-features {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+  .wellness-feat {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+  }
+  .wellness-feat svg { width: 18px; height: 18px; color: var(--wood-light); }
+
+  /* ── GALLERY SECTION ── */
+  .gallery-section { background: var(--cream); }
+  .gallery-section h2 { text-align: center; }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 250px);
+    gap: 0.8rem;
+    margin-top: 3rem;
+  }
+  .gallery-item {
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .gallery-item:first-child { grid-row: span 2; }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.07); }
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(42,37,32,0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  .gallery-item:hover .gallery-overlay { background: rgba(42,37,32,0.35); }
+  .gallery-overlay svg {
+    color: var(--white);
+    width: 36px;
+    height: 36px;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.3s, transform 0.3s;
+  }
+  .gallery-item:hover .gallery-overlay svg { opacity: 1; transform: scale(1); }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90vw; max-height: 90vh; object-fit: contain; }
+  .lightbox-close {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .lightbox-close:hover { opacity: 1; }
+
+  /* ── RESERVATION SECTION ── */
+  .reservation-section { background: var(--white); }
+  .reservation-section h2 { text-align: center; margin-bottom: 0.5rem; }
+  .reservation-section .section-label { text-align: center; display: block; }
+  .booking-form {
+    max-width: 860px;
+    margin: 3.5rem auto 0;
+    background: var(--beige);
+    padding: 3rem;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .form-group label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-family: 'Jost', sans-serif;
+  }
+  .form-group input,
+  .form-group select {
+    padding: 0.85rem 1rem;
+    background: var(--white);
+    border: 1px solid var(--sand);
+    color: var(--dark);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus { border-color: var(--olive); }
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7c5c' stroke-width='1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
+  }
+  .form-submit {
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  .btn-book {
+    background: var(--olive);
+    color: var(--white);
+    padding: 1.1rem 3.5rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .btn-book:hover { background: var(--olive-dark); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(107,124,92,0.3); }
+  .btn-book svg { width: 16px; height: 16px; }
+
+  /* ── LA RÉGION ── */
+  .region-section { background: var(--beige); }
+  .region-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .region-img img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+  .region-points {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .region-point {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .region-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--sand);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 40px;
+  }
+  .region-point h4 { font-size: 1rem; color: var(--dark); margin-bottom: 0.3rem; }
+  .region-point p { font-size: 0.88rem; color: var(--text-light); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); color: var(--white); padding: 5rem 0 2rem; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+  }
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .footer-tagline {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .footer-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+  .socials { display: flex; gap: 0.9rem; }
+  .social-link {
+    width: 38px; height: 38px;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .social-link:hover { border-color: var(--olive); background: var(--olive); }
+  .social-link svg { width: 15px; height: 15px; color: rgba(255,255,255,0.7); }
+  .social-link:hover svg { color: var(--white); }
+
+  .footer-col h4 {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--wood-light);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .footer-links { display: flex; flex-direction: column; gap: 0.7rem; }
+  .footer-links a {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--white); }
+  .contact-item {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    margin-bottom: 0.9rem;
+  }
+  .contact-item svg { width: 15px; height: 15px; color: var(--olive-light); flex-shrink: 0; margin-top: 3px; }
+  .contact-item span { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+  .newsletter-form { display: flex; margin-top: 1rem; }
+  .newsletter-form input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-right: none;
+    color: var(--white);
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+  }
+  .newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
+  .newsletter-form button {
+    padding: 0.75rem 1.2rem;
+    background: var(--olive);
+    border: none;
+    cursor: pointer;
+    color: var(--white);
+    transition: background 0.2s;
+  }
+  .newsletter-form button:hover { background: var(--olive-dark); }
+  .newsletter-form button svg { width: 16px; height: 16px; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-bottom p { font-size: 0.78rem; color: rgba(255,255,255,0.35); }
+
+  .map-embed {
+    margin-top: 1rem;
+    width: 100%;
+    height: 120px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .map-embed a {
+    font-size: 0.75rem;
+    color: var(--olive-light);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── MENU (food) ── */
+  .menu-section { background: var(--cream); }
+  .menu-section h2 { text-align: center; margin-bottom: 0.5rem; }
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+  .menu-cat { border-top: 2px solid var(--sand); padding-top: 2rem; }
+  .menu-cat-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    color: var(--olive);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+  }
+  .menu-item { margin-bottom: 1.2rem; border-bottom: 1px dotted var(--sand); padding-bottom: 1.2rem; }
+  .menu-item:last-child { border-bottom: none; }
+  .menu-item-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+  .menu-item-name { font-size: 0.95rem; color: var(--dark); font-weight: 400; }
+  .menu-item-price { font-family: 'Cormorant Garamond', serif; font-size: 1rem; color: var(--wood); white-space: nowrap; }
+  .menu-item-desc { font-size: 0.8rem; color: var(--text-light); margin-top: 0.25rem; font-style: italic; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; height: 50px; }
+    50% { opacity: 1; height: 70px; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) {
+    .exp-grid { grid-template-columns: repeat(2, 1fr); }
+    .rooms-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .two-col, .two-col.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .two-col.reverse { direction: ltr; }
+    .region-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
+    .gallery-item:first-child { grid-row: span 1; }
+    .form-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .exp-grid { grid-template-columns: 1fr 1fr; }
+    .rooms-grid { grid-template-columns: 1fr; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    nav { padding: 0 1.5rem; }
+    .strip-banner { gap: 1.5rem; }
+    section { padding: 5rem 0; }
+    .wellness-section { background-attachment: scroll; }
+  }
+
+  @media (max-width: 480px) {
+    .exp-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; align-items: center; }
+  }
+
+  /* ── UTILS ── */
+  .text-center { text-align: center; }
+  .mt-btn { margin-top: 2.5rem; }
+  .btn-wood {
+    background: transparent;
+    color: var(--dark);
+    border: 1px solid var(--wood);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+  .btn-wood:hover { background: var(--wood); color: var(--white); transform: translateY(-2px); }
+  .btn-olive-outline {
+    color: var(--olive);
+    border: 1px solid var(--olive);
+    padding: 0.9rem 2.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    background: transparent;
+  }
+  .btn-olive-outline:hover { background: var(--olive); color: var(--white); transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav id="main-nav">
+  <a href="#accueil" class="nav-logo">Kemero Ikubor</a>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#restaurant">Restaurant</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#hotel">Chambres</a></li>
+    <li><a href="#region">La région</a></li>
+    <li><a href="#bienetre">Bien-être</a></li>
+    <li><a href="#galerie">Photos</a></li>
+    <li><a href="#reservation" class="nav-cta">Réserver</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#accueil" onclick="closeMobile()">Accueil</a>
+  <a href="#restaurant" onclick="closeMobile()">Restaurant</a>
+  <a href="#menu" onclick="closeMobile()">Menu</a>
+  <a href="#hotel" onclick="closeMobile()">Chambres</a>
+  <a href="#region" onclick="closeMobile()">La région</a>
+  <a href="#bienetre" onclick="closeMobile()">Bien-être</a>
+  <a href="#galerie" onclick="closeMobile()">Photos</a>
+  <a href="#reservation" onclick="closeMobile()">Réserver</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="accueil" class="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Hôtel de charme • Restaurant • Bien-être</span>
+    <h1>Kemero Ikubor</h1>
+    <p class="hero-tagline">Une adresse d'exception au cœur de la Méditerranée</p>
+    <p class="hero-subtitle">Une expérience au cœur de la gastronomie méditerranéenne</p>
+    <div class="hero-btns">
+      <a href="#reservation" class="btn-primary">Réserver une table</a>
+      <a href="#hotel" class="btn-outline">Découvrir l'hôtel</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>Découvrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── STRIP BANNER ── -->
+<div class="strip-banner">
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    Cuisine de terroir
+  </div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    12 Chambres & Suites
+  </div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+    Espace Bien-être
+  </div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Ouvert 7j/7
+  </div>
+</div>
+
+<!-- ── RESTAURANT SECTION ── -->
+<section id="restaurant" class="restaurant-section">
+  <div class="container">
+    <div class="two-col">
+      <div class="restaurant-text reveal">
+        <span class="section-label">Découvrez la cuisine de terroir</span>
+        <h2>Notre Restaurant</h2>
+        <div class="section-divider"></div>
+        <p>Découvrez une cuisine authentique et généreuse, inspirée du terroir. Que ce soit pour un déjeuner convivial, un dîner en famille ou un repas d'affaires, notre restaurant vous accueille dans une atmosphère chaleureuse et détendue.</p>
+        <p>Chaque jour, nous élaborons des plats faits maison à partir de produits frais et de saison, pour une expérience culinaire sincère, de l'entrée au dessert.</p>
+        <div class="chef-signature">
+          <div>
+            <div class="chef-sig-name">Denis</div>
+            <div class="chef-sig-role">Sommelier</div>
+            <div class="chef-sig-desc">Denis vous accompagne avec passion dans le choix des vins, mettant à l'honneur les crus régionaux et les vins naturels.</div>
+          </div>
+        </div>
+        <div class="chef-signature">
+          <div>
+            <div class="chef-sig-name">Valérie</div>
+            <div class="chef-sig-role">Chef cuisinière</div>
+            <div class="chef-sig-desc">Valérie élabore des plats faits maison à partir de produits frais et de saison, pour une expérience sincère et inoubliable.</div>
+          </div>
+        </div>
+        <em style="color:var(--olive-dark);font-family:'Cormorant Garamond',serif;font-size:1.05rem;display:block;margin-bottom:2rem;">Laissez-vous séduire par un moment gourmand et inoubliable.</em>
+        <a href="#menu" class="btn-olive-outline">Voir le menu</a>
+      </div>
+      <div class="img-wrapper reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&q=80" alt="Restaurant Kemero Ikubor" loading="lazy">
+        <div class="img-badge">Cuisine de<br>saison & terroir</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ── -->
+<section class="experience-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label text-center" style="display:block">Notre philosophie</span>
+      <h2 class="text-center">Une expérience unique</h2>
+      <div class="section-divider centered"></div>
+    </div>
+    <div class="exp-grid">
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a9 9 0 019 9c0 4.97-4.03 9-9 9S3 15.97 3 11a9 9 0 019-9z"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Produits frais & locaux</h3>
+        <p>Nous sélectionnons chaque matin les meilleurs produits du marché et de nos producteurs partenaires.</p>
+      </div>
+      <div class="exp-card reveal reveal-delay-2">
+        <div class="exp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2v4M18 2v4M2 10h20M2 10a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V10z"/></svg>
+        </div>
+        <h3>Cuisine faite maison</h3>
+        <p>Tous nos plats sont élaborés sur place avec passion, dans le respect des traditions culinaires méditerranéennes.</p>
+      </div>
+      <div class="exp-card reveal reveal-delay-3">
+        <div class="exp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 21h12M3 21h.01M7 3v18M17 3v18M3 3h18"/></svg>
+        </div>
+        <h3>Vins régionaux & naturels</h3>
+        <p>Une cave soigneusement sélectionnée par Denis, mettant à l'honneur les vignerons locaux et les vins nature.</p>
+      </div>
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Ambiance conviviale</h3>
+        <p>Un lieu chaleureux où chaque repas devient un moment de partage et de bonheur, entre amis ou en famille.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENU SECTION ── -->
+<section id="menu" class="menu-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label text-center" style="display:block">À la carte</span>
+      <h2>Notre Menu</h2>
+      <div class="section-divider centered"></div>
+      <p class="text-center" style="color:var(--text-light);max-width:520px;margin:0 auto;font-size:0.95rem;">Inspiré des saisons et du terroir, notre menu évolue chaque jour pour vous offrir le meilleur.</p>
+    </div>
+    <div class="menu-grid" style="margin-top:3.5rem">
+      <div class="menu-cat reveal">
+        <div class="menu-cat-title">Entrées</div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Velouté de courgettes</span><span class="menu-item-price">12 €</span></div>
+          <div class="menu-item-desc">Huile d'olive, basilic frais, croûtons maison</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Burrata crémeuse</span><span class="menu-item-price">16 €</span></div>
+          <div class="menu-item-desc">Tomates anciennes, tapenade, fleur de sel</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Terrine de campagne</span><span class="menu-item-price">14 €</span></div>
+          <div class="menu-item-desc">Cornichons artisanaux, pain de mie grillé</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Assiette de charcuteries</span><span class="menu-item-price">18 €</span></div>
+          <div class="menu-item-desc">Sélection de producteurs régionaux</div>
+        </div>
+      </div>
+      <div class="menu-cat reveal reveal-delay-1">
+        <div class="menu-cat-title">Plats principaux</div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Daube provençale</span><span class="menu-item-price">29 €</span></div>
+          <div class="menu-item-desc">Bœuf mijoté, olives noires, polenta crémeuse</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Filet de rouget barbet</span><span class="menu-item-price">32 €</span></div>
+          <div class="menu-item-desc">Sauce vierge, fenouil braisé, huile de citron</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Risotto aux champignons</span><span class="menu-item-price">24 €</span></div>
+          <div class="menu-item-desc">Cèpes, parmesan affiné, truffe d'été</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Agneau rôti aux herbes</span><span class="menu-item-price">34 €</span></div>
+          <div class="menu-item-desc">Romarin, thym, gratin dauphinois</div>
+        </div>
+      </div>
+      <div class="menu-cat reveal reveal-delay-2">
+        <div class="menu-cat-title">Desserts</div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Tarte tatin maison</span><span class="menu-item-price">11 €</span></div>
+          <div class="menu-item-desc">Pommes caramélisées, crème fraîche</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Panna cotta vanille</span><span class="menu-item-price">10 €</span></div>
+          <div class="menu-item-desc">Coulis de fruits rouges du jardin</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Assiette de fromages</span><span class="menu-item-price">14 €</span></div>
+          <div class="menu-item-desc">Sélection affinée, confiture de figues</div>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Moelleux au chocolat</span><span class="menu-item-price">12 €</span></div>
+          <div class="menu-item-desc">Cœur coulant, glace vanille bourbon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOTEL SECTION ── -->
+<section id="hotel" class="hotel-section">
+  <div class="container">
+    <div class="reveal text-center" style="margin-bottom:1rem">
+      <span class="section-label">Votre séjour</span>
+      <h2>Chambres & Suites</h2>
+      <div class="section-divider centered" style="background:rgba(255,255,255,0.2)"></div>
+      <p style="max-width:520px;margin:0 auto;">Des espaces pensés pour votre repos et votre bien-être, alliant confort contemporain et charme authentique.</p>
+    </div>
+    <div class="rooms-grid">
+      <div class="room-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=700&q=80" alt="Chambre Classique" loading="lazy">
+        <div class="room-overlay">
+          <div class="room-type">Chambre</div>
+          <div class="room-name">Chambre Terroir</div>
+          <div class="room-price">À partir de 140 € / nuit</div>
+          <a href="#reservation" class="room-cta">Réserver</a>
+        </div>
+      </div>
+      <div class="room-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=700&q=80" alt="Suite Provence" loading="lazy">
+        <div class="room-overlay">
+          <div class="room-type">Suite</div>
+          <div class="room-name">Suite Provence</div>
+          <div class="room-price">À partir de 220 € / nuit</div>
+          <a href="#reservation" class="room-cta">Réserver</a>
+        </div>
+      </div>
+      <div class="room-card reveal reveal-delay-3">
+        <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=700&q=80" alt="Suite Prestige" loading="lazy">
+        <div class="room-overlay">
+          <div class="room-type">Suite Prestige</div>
+          <div class="room-name">Suite Méditerranée</div>
+          <div class="room-price">À partir de 320 € / nuit</div>
+          <a href="#reservation" class="room-cta">Réserver</a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-btn reveal">
+      <a href="#reservation" class="btn-outline">Voir toutes les chambres</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── RÉGION SECTION ── -->
+<section id="region" class="region-section">
+  <div class="container">
+    <div class="region-grid">
+      <div class="region-img reveal">
+        <img src="https://images.unsplash.com/photo-1533104816931-20fa691ff6ca?w=800&q=80" alt="La région" loading="lazy">
+      </div>
+      <div class="reveal reveal-delay-2">
+        <span class="section-label">Aux alentours</span>
+        <h2>La Région</h2>
+        <div class="section-divider"></div>
+        <p style="color:var(--text-light)">Kemero Ikubor est idéalement situé pour explorer les merveilles naturelles et culturelles de notre belle région méditerranéenne.</p>
+        <div class="region-points">
+          <div class="region-point">
+            <div class="region-num">01</div>
+            <div>
+              <h4>Villages pittoresques</h4>
+              <p style="font-size:.88rem;color:var(--text-light)">À seulement quelques kilomètres, découvrez des villages classés parmi les plus beaux de France.</p>
+            </div>
+          </div>
+          <div class="region-point">
+            <div class="region-num">02</div>
+            <div>
+              <h4>Randonnées & nature</h4>
+              <p style="font-size:.88rem;color:var(--text-light)">Des sentiers balisés traversant garrigue, vignobles et garrigues parfumées.</p>
+            </div>
+          </div>
+          <div class="region-point">
+            <div class="region-num">03</div>
+            <div>
+              <h4>Marchés & artisans</h4>
+              <p style="font-size:.88rem;color:var(--text-light)">Immergez-vous dans la vie locale avec ses marchés colorés et ses artisans passionnés.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── BIEN-ÊTRE SECTION ── -->
+<section id="bienetre" class="wellness-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Détente & sérénité</span>
+      <h2>Espace Bien-être</h2>
+      <div class="section-divider centered" style="background:rgba(255,255,255,0.3)"></div>
+      <p>Un espace dédié à votre sérénité, où le temps s'arrête et où chaque sens est choyé. Massages, soins, bain à remous… laissez-vous envelopper.</p>
+      <div class="wellness-features">
+        <div class="wellness-feat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><circle cx="12" cy="12" r="2"/></svg>
+          Jacuzzi & bain nordique
+        </div>
+        <div class="wellness-feat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Massages & soins
+        </div>
+        <div class="wellness-feat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          Yoga au lever du soleil
+        </div>
+        <div class="wellness-feat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Soins personnalisés
+        </div>
+      </div>
+      <a href="#reservation" class="btn-outline">Découvrir l'espace bien-être</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── GALERIE ── -->
+<section id="galerie" class="gallery-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label text-center" style="display:block">Instantanés</span>
+      <h2>Galerie Photos</h2>
+      <div class="section-divider centered"></div>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item reveal" onclick="openLightbox('https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&q=85')">
+        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&q=80" alt="Restaurant" loading="lazy">
+        <div class="gallery-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" onclick="openLightbox('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1200&q=85')">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80" alt="Chambre" loading="lazy">
+        <div class="gallery-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" onclick="openLightbox('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=85')">
+        <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80" alt="Piscine" loading="lazy">
+        <div class="gallery-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-1" onclick="openLightbox('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=85')">
+        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80" alt="Assiette" loading="lazy">
+        <div class="gallery-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+      <div class="gallery-item reveal reveal-delay-2" onclick="openLightbox('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200&q=85')">
+        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80" alt="Spa" loading="lazy">
+        <div class="gallery-overlay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Photo Kemero Ikubor">
+</div>
+
+<!-- ── RÉSERVATION ── -->
+<section id="reservation" class="reservation-section">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label text-center" style="display:block">Planifiez votre séjour</span>
+      <h2>Réservez votre table</h2>
+      <div class="section-divider centered"></div>
+      <p class="text-center" style="color:var(--text-light);max-width:480px;margin:0 auto;font-size:0.95rem;">Choisissez vos dates et préparez votre expérience Kemero Ikubor. Notre équipe reviendra vers vous sous 24 heures.</p>
+    </div>
+    <div class="booking-form reveal reveal-delay-1">
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Date d'arrivée</label>
+          <input type="date" id="arrival">
+        </div>
+        <div class="form-group">
+          <label>Date de départ</label>
+          <input type="date" id="departure">
+        </div>
+        <div class="form-group">
+          <label>Nombre d'adultes</label>
+          <select id="adults">
+            <option value="1">1 adulte</option>
+            <option value="2" selected>2 adultes</option>
+            <option value="3">3 adultes</option>
+            <option value="4">4 adultes</option>
+            <option value="5">5 adultes +</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nombre d'enfants</label>
+          <select id="children">
+            <option value="0" selected>0 enfant</option>
+            <option value="1">1 enfant</option>
+            <option value="2">2 enfants</option>
+            <option value="3">3 enfants</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Type de séjour</label>
+          <select id="type">
+            <option value="hotel">Chambre & Petit-déjeuner</option>
+            <option value="demi">Demi-pension</option>
+            <option value="pension">Pension complète</option>
+            <option value="table">Table uniquement</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Occasion spéciale</label>
+          <select id="occasion">
+            <option value="">Aucune</option>
+            <option value="anniversaire">Anniversaire</option>
+            <option value="romantique">Escapade romantique</option>
+            <option value="affaires">Voyage d'affaires</option>
+            <option value="famille">Réunion de famille</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-submit">
+        <button class="btn-book" onclick="handleReservation()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Réserver maintenant
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-brand">Kemero Ikubor</span>
+        <p class="footer-tagline">Hôtel de charme • Restaurant • Bien-être</p>
+        <p class="footer-desc">Un lieu d'exception niché au cœur de la Méditerranée, où gastronomie, hospitalité et nature se rencontrent pour créer des souvenirs inoubliables.</p>
+        <div class="socials">
+          <a class="social-link" href="#" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+          <a class="social-link" href="https://www.facebook.com/profile.php?id=61580686936502" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a class="social-link" href="#" title="TripAdvisor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <div class="footer-links">
+          <a href="#accueil">Accueil</a>
+          <a href="#restaurant">Notre restaurant</a>
+          <a href="#menu">Menu</a>
+          <a href="#hotel">Chambres & Suites</a>
+          <a href="#bienetre">Espace bien-être</a>
+          <a href="#galerie">Galerie photos</a>
+          <a href="#reservation">Réservation</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>14 Route des Oliviers<br>Kemero — Côte Méditerranée</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.55 10.69 19.78 19.78 0 01.48 2.07 2 2 0 012.46 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91A16 16 0 0016 16.09l.79-.79a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          <span>+229 01 48 04 53 20</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>chancelle14@gmail.com</span>
+        </div>
+        <div class="map-embed">
+          <a href="https://maps.google.com" target="_blank">
+            📍 Voir sur Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p style="font-size:.85rem;color:rgba(255,255,255,0.5);margin-bottom:1rem;line-height:1.7;">Recevez nos actualités, offres exclusives et menus du moment directement dans votre boîte.</p>
+        <div class="newsletter-form">
+          <input type="email" placeholder="Votre email" id="newsletter-email">
+          <button onclick="subscribeNewsletter()">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Kemero Ikubor — Tous droits réservés</p>
+      <p>Mentions légales · Politique de confidentialité · CGV</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // ── HERO BG ──
+  window.addEventListener('load', () => {
+    document.getElementById('hero-bg').classList.add('loaded');
+  });
+
+  // ── HAMBURGER ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+  function closeMobile() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // ── REVEAL ON SCROLL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── LIGHTBOX ──
+  function openLightbox(src) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // ── RESERVATION ──
+  function handleReservation() {
+    const arrival = document.getElementById('arrival').value;
+    const departure = document.getElementById('departure').value;
+    if (!arrival || !departure) {
+      alert('Veuillez sélectionner vos dates d\'arrivée et de départ.');
+      return;
+    }
+    const a = new Date(arrival), d = new Date(departure);
+    if (d <= a) {
+      alert('La date de départ doit être postérieure à la date d\'arrivée.');
+      return;
+    }
+    const nights = Math.round((d - a) / (1000 * 60 * 60 * 24));
+    alert(`Merci ! Votre demande de réservation pour ${nights} nuit(s) a bien été reçue.\nNotre équipe vous contactera dans les 24 heures pour confirmer votre séjour.`);
+  }
+
+  // ── NEWSLETTER ──
+  function subscribeNewsletter() {
+    const email = document.getElementById('newsletter-email').value;
+    if (!email || !email.includes('@')) {
+      alert('Veuillez entrer une adresse email valide.');
+      return;
+    }
+    alert(`Merci ! Vous êtes désormais abonné(e) à notre newsletter avec l'adresse : ${email}`);
+    document.getElementById('newsletter-email').value = '';
+  }
+
+  // ── DATE DEFAULTS ──
+  const today = new Date();
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+  const dayAfter = new Date(today); dayAfter.setDate(today.getDate() + 3);
+  const fmt = d => d.toISOString().split('T')[0];
+  document.getElementById('arrival').min = fmt(tomorrow);
+  document.getElementById('departure').min = fmt(dayAfter);
+  document.getElementById('arrival').value = fmt(tomorrow);
+  document.getElementById('departure').value = fmt(dayAfter);
+</script>
+
+</body>
+</html>
